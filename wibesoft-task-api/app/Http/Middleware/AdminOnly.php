@@ -16,10 +16,16 @@ class AdminOnly
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth()->check() && auth()->user()->is_admin) {
-            return $next($request);
+        // Kullanıcı giriş yapmış mı kontrol et
+        if (!$request->user()) {
+            return response()->json(['error' => 'Unauthenticated'], 401);
         }
 
-        return response()->json(['message' => 'Unauthorized'], 403);
+        // Kullanıcı yönetici mi kontrol et
+        if (!$request->user()->is_admin) {
+            return response()->json(['error' => 'Unauthorized'], 403);
+        }
+
+        return $next($request);
     }
 }

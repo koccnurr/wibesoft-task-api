@@ -39,7 +39,7 @@ class TaskAssignedMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mail.task-assigned',
         );
     }
 
@@ -52,8 +52,9 @@ class TaskAssignedMail extends Mailable
     {
         return [];
     }
+
     public function build()
-{
-    return $this->subject('Yeni Görev Atandı')->view('mail.task-assigned');
-}
+    {
+        return $this->subject('Yeni Görev Atandı')->view('mail.task-assigned');
+    }
 }

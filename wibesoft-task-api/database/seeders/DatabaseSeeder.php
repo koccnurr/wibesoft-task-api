@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -12,11 +13,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        Permission::create(['name' => 'add tasks']);
+        Permission::create(['name' => 'update tasks']);
+        Permission::create(['name' => 'delete tasks']);
+    
+        // Roller tanımla
+        $adminRole = Role::create(['name' => 'Admin']);
+        $adminRole->givePermissionTo(['add tasks', 'update tasks', 'delete tasks']);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call(UserSeeder::class);
+        $this->call(AdminSeeder::class);
+
     }
 }

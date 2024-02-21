@@ -17,16 +17,16 @@ class TaskController extends Controller
     public function store(Request $request)
 {
     $request->validate([
-        'time' => 'required|date',
+        'task_time' => 'required|date',
         'title' => 'required|string',
-        'description' => 'required|string',
-        'user_id' => 'required|exists:users,id', // Kullanıcı kontrolü ekleyin
+        'subject' => 'required|string',
+        'user_id' => 'required|exists:users,id',
     ]);
 
     $task = Task::create([
-        'time' => $request->time,
+        'task_time' => $request->task_time,
         'title' => $request->title,
-        'description' => $request->description,
+        'subject' => $request->subject,
         'user_id' => $request->user_id,
     ]);
 
@@ -38,9 +38,9 @@ class TaskController extends Controller
 public function update(Request $request, $id)
 {
     $request->validate([
-        'time' => 'required|date',
+        'task_time' => 'required|date',
         'title' => 'required|string',
-        'description' => 'required|string',
+        'subject' => 'required|string',
         'user_id' => 'required|exists:users,id',
     ]);
 
@@ -51,9 +51,9 @@ public function update(Request $request, $id)
     }
 
     $task->update([
-        'time' => $request->time,
+        'task_time' => $request->task_time,
         'title' => $request->title,
-        'description' => $request->description,
+        'subject' => $request->subject,
         'user_id' => $request->user_id,
     ]);
 
